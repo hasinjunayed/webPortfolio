@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hasin Junayed | Engineer & Product Specialist</title>
+    <meta name="description" content="Portfolio of Hasin Junayed - Innovative Engineer with expertise in product management, solar solutions, and corporate strategy">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        scroll-behavior: smooth;
+      }
+      
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      .animate-float-delay {
+        animation: float 6s ease-in-out 1s infinite;
+      }
+      
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+      }
+      
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      
+      .card-hover:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      
+      .gradient-text {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      
+      .section-title {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .section-title:after {
+        content: '';
+        position: absolute;
+        width: 60%;
+        height: 4px;
+        bottom: -8px;
+        left: 20%;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        border-radius: 2px;
+      }
+      
+      .nav-link {
+        position: relative;
+      }
+      
+      .nav-link:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: #3b82f6;
+        transition: width 0.3s ease;
+      }
+      
+      .nav-link:hover:after {
+        width: 100%;
+      }
+      
+      .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+      
+      .shape {
+        position: absolute;
+        opacity: 0.1;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+        filter: blur(40px);
+      }
+
+      .timeline-item:before {
+        content: '';
+        position: absolute;
+        left: -40px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        border: 4px solid white;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Floating background shapes -->
+    <div id="vanta-bg" class="fixed top-0 left-0 w-full h-full z-0"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white bg-opacity-90 shadow-sm z-50 backdrop-filter backdrop-blur-lg">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-center py-4">
+          <a href="#" class="text-xl font-bold flex items-center">
+            <span class="gradient-text">HJ</span>
+            <span class="ml-2 hidden sm:inline">Hasin Junayed</span>
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a href="#about" class="nav-link hover:text-blue-600">About</a>
+            <a href="#experience" class="nav-link hover:text-blue-600">Experience</a>
+            <a href="#projects" class="nav-link hover:text-blue-600">Projects</a>
+            <a href="#skills" class="nav-link hover:text-blue-600">Skills</a>
+            <a href="#contact" class="nav-link hover:text-blue-600">Contact</a>
+          </div>
+          <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 hidden flex-col items-center justify-center space-y-8">
+      <button id="close-menu" class="absolute top-6 right-6 text-gray-600">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+      <a href="#about" class="text-2xl font-medium nav-link">About</a>
+      <a href="#experience" class="text-2xl font-medium nav-link">Experience</a>
+      <a href="#projects" class="text-2xl font-medium nav-link">Projects</a>
+      <a href="#skills" class="text-2xl font-medium nav-link">Skills</a>
+      <a href="#contact" class="text-2xl font-medium nav-link">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen relative flex items-center justify-center pt-16 px-6 overflow-hidden">
+      <div class="floating-shapes">
+        <div class="shape w-64 h-64 top-1/4 left-1/4 animate-float"></div>
+        <div class="shape w-96 h-96 bottom-1/4 right-1/4 animate-float-delay"></div>
+      </div>
+      
+      <div class="max-w-6xl mx-auto z-10">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="text-center md:text-left">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight">
+              Hi, I'm <span class="gradient-text">Hasin Junayed</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-600">
+              Engineer • Product Specialist • Agile Learner • Brand Visionary
+            </p>
+            <p class="text-lg mb-8 text-gray-600 max-w-lg">
+              Bridging technical expertise with business acumen to create impactful solutions and drive innovation.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <a 
+                href="#contact" 
+                class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full font-medium transition duration-300 hover:shadow-lg transform hover:-translate-y-1"
+              >
+                Contact Me
+              </a>
+              <a 
+                href="#projects" 
+                class="border-2 border-blue-500 text-blue-500 px-8 py-3 rounded-full font-medium transition duration-300 hover:bg-blue-50 hover:shadow-lg transform hover:-translate-y-1"
+              >
+                View Projects
+              </a>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto">
+              <img 
+                src="images/DP.jpeg" 
+                alt="Hasin Junayed" 
+                class="w-full h-full rounded-full object-cover border-4 border-white shadow-2xl z-10 relative"
+                loading="eager"
+              >
+              <div class="absolute inset-0 rounded-full border-4 border-transparent animate-spin-slow" style="border-top-color: #3b82f6; border-right-color: #8b5cf6;"></div>
+              <div class="absolute -inset-4 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 blur-xl animate-pulse-slow"></div>
+            </div>
+            
+            <!-- Floating icons around profile -->
+            <div class="absolute -top-8 -left-8 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-float">
+              <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_vybwn7df.json" background="transparent" speed="1" style="width: 40px; height: 40px;" loop autoplay></lottie-player>
+            </div>
+            <div class="absolute -bottom-8 -right-8 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-float-delay">
+              <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_isdnju3g.json" background="transparent" speed="1" style="width: 40px; height: 40px;" loop autoplay></lottie-player>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 relative bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center section-title">
+          About <span class="gradient-text">Me</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="relative">
+            <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-1 shadow-lg">
+              <img 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                alt="Engineering work" 
+                class="rounded-2xl w-full h-auto"
+                loading="lazy"
+              >
+            </div>
+            <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+              <div class="flex items-center">
+                <div class="bg-blue-100 p-3 rounded-full mr-3">
+                  <i class="fas fa-graduation-cap text-blue-600 text-xl"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Education</p>
+                  <p class="font-medium">B.Sc. in Mechanical and Production Engineering</p>
+                  <p class="text-xs text-gray-500">AUST | 3.023/4.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <p class="text-lg leading-relaxed mb-6 text-gray-700">
+              I'm an innovative engineering graduate with a passion for product management and business strategy. My diverse background combines technical expertise with corporate insight, allowing me to bridge the gap between engineering solutions and market needs.
+            </p>
+            <p class="text-lg leading-relaxed mb-8 text-gray-700">
+              Currently working on relaunching Pathao SHOP while having experience in banking operations at HSBC, I bring a unique perspective to problem-solving. My entrepreneurial venture, PRIMEFLIX, has given me hands-on experience in customer service and business management with 1000+ clients in my portfolio.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <div class="bg-blue-50 px-4 py-2 rounded-full flex items-center">
+                <i class="fas fa-bolt text-blue-500 mr-2"></i>
+                <span>Product Management</span>
+              </div>
+              <div class="bg-purple-50 px-4 py-2 rounded-full flex items-center">
+                <i class="fas fa-chart-line text-purple-500 mr-2"></i>
+                <span>Business Strategy</span>
+              </div>
+              <div class="bg-green-50 px-4 py-2 rounded-full flex items-center">
+                <i class="fas fa-users text-green-500 mr-2"></i>
+                <span>Team Leadership</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-6 relative bg-gray-50">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center section-title">
+          Professional <span class="gradient-text">Experience</span>
+        </h2>
+        
+        <div class="relative pl-8">
+          <!-- Timeline -->
+          <div class="border-l-2 border-blue-200 space-y-12">
+            <!-- Pathao Product Intern -->
+            <div class="relative timeline-item">
+              <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-xl font-bold">Pathao</h3>
+                    <p class="text-blue-600 font-medium">Product Intern (Jan 2025 - Present)</p>
+                  </div>
+                  <div class="mt-2 md:mt-0">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Current</span>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Relaunching Pathao SHOP in the mobile app and launching its web version</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Designed wireframes and wrote PRDs for new features</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Collaborated with engineering, CX, and stakeholders to implement updates</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Analyzed user experience and market trends to improve product performance</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- HSBC Experience -->
+            <div class="relative timeline-item">
+              <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-xl font-bold">HSBC Bangladesh</h3>
+                    <p class="text-blue-600 font-medium">WPB Intern (July 2024 - Jan 2025)</p>
+                  </div>
+                  <div class="mt-2 md:mt-0">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">6 Months</span>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Processed KYC for low-risk customers and performed risk assessments</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Performed fraud operations for WPB customers</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Extracted and verified information from PIFs</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- Pathao Ambassador -->
+            <div class="relative timeline-item">
+              <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-xl font-bold">Pathao</h3>
+                    <p class="text-blue-600 font-medium">Campus Ambassador (Aug 2023 - Present)</p>
+                  </div>
+                  <div class="mt-2 md:mt-0">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">1+ Year</span>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Representative of Pathao at Ahsanullah University of Science & Technology</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Organize seminars and roadshows on campus premises</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- PRIMEFLIX -->
+            <div class="relative timeline-item">
+              <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-xl font-bold">PRIMEFLIX</h3>
+                    <p class="text-blue-600 font-medium">Self-Employed (Nov 2020 - Present)</p>
+                  </div>
+                  <div class="mt-2 md:mt-0">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">3+ Years</span>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Built portfolio with 1000+ clients (300 active clients)</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Provide 24/7 customer support for all clients</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i>
+                    <span>Generated approximately 200K BDT annually</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6 relative bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center section-title">
+          Featured <span class="gradient-text">Projects</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Pathao SHOP Relaunch -->
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover">
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                alt="E-commerce Platform" 
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+                loading="lazy"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div class="absolute bottom-4 left-4">
+                <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">Product</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Pathao SHOP Relaunch</h3>
+              <p class="text-gray-600 mb-4">Leading the redesign and relaunch of Pathao's e-commerce platform including mobile app and new web version.</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Product Management</span>
+                <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">UX Design</span>
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Market Analysis</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <a href="#" class="text-blue-500 hover:text-blue-700 font-medium flex items-center">
+                  View Details <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_gn0tojcq.json" background="transparent" speed="1" style="width: 40px; height: 40px;" hover></lottie-player>
+              </div>
+            </div>
+          </div>
+          
+          <!-- PRIMEFLIX Business -->
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover">
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                alt="Business Management" 
+                class="w-full h-full object-cover transition duration-500 hover:scale-110"
+                loading="lazy"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div class="absolute bottom-4 left-4">
+                <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm">Entrepreneurship</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">PRIMEFLIX Business</h3>
+              <p class="text-gray-600 mb-4">Built and managed a successful service business with 1000+ clients and 24/7 support system.</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Business Development</span>
+                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Customer Service</span>
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Revenue Generation</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <a href="#" class="text-blue-500 hover:text-blue-700 font-medium flex items-center">
+                  View Details <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_gn0tojcq.json" background="transparent" speed="1" style="width: 40px; height: 40px;" hover></lottie-player>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6 relative bg-gray-50">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center section-title">
+          My <span class="gradient-text">Skills</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Professional Skills -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+            <div class="text-center mb-6">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                <i class="fas fa-briefcase text-blue-500 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Professional</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Product Management</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Customer Experience</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Branding & Marketing</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Risk Management</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Technical Skills -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+            <div class="text-center mb-6">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                <i class="fas fa-laptop-code text-purple-500 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Technical</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Microsoft Office Suite</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Figma & Whimsical</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Adobe Photoshop</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>SolidWorks</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Interpersonal Skills -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+            <div class="text-center mb-6">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                <i class="fas fa-users text-green-500 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Interpersonal</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Leadership & Management</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Problem Solving</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Effective Communication</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Team Collaboration</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="py-20 px-6 relative bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center section-title">
+          Education <span class="gradient-text">Background</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- AUST -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+            <div class="text-center mb-6">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                <i class="fas fa-university text-blue-500 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Ahsanullah University of Science & Technology</h3>
+              <p class="text-gray-600 mb-2">B.Sc. in Mechanical and Production Engineering</p>
+              <p class="text-sm text-gray-500">Dec 2020 - Nov 2024</p>
+              <p class="text-sm font-medium text-blue-600 mt-2">CGPA: 3.023/4.00</p>
+            </div>
+          </div>
+          
+          <!-- College -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+            <div class="text-center mb-6">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                <i class="fas fa-school text-purple-500 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Govt. Syed Hatem Ali College, Barisal</h3>
+              <p class="text-gray-600 mb-2">Higher Secondary Certificate (HSC)</p>
+              <p class="text-sm text-gray-500">2017 - 2019</p>
+              <p class="text-sm font-medium text-purple-600 mt-2">GPA: 4.58/5.00</p>
+            </div>
+          </div>
+          
+          <!-- School -->
+          <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+            <div class="text-center mb-6">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                <i class="fas fa-graduation-cap text-green-500 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Barisal Zilla School</h3>
+              <p class="text-gray-600 mb-2">Secondary School Certificate (SSC)</p>
+              <p class="text-sm text-gray-500">2010 - 2017</p>
+              <p class="text-sm font-medium text-green-600 mt-2">GPA: 5.00/5.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 relative bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+      <div class="max-w-6xl mx-auto">
+        
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center">
+          Let's <span class="animated-gradient-text cursor-pointer">Connect</span>
+        </h2>
+        <p class="text-xl text-center mb-12 max-w-2xl mx-auto opacity-90">
+          I'm always open to discussing new opportunities, collaborations, or just chatting about innovative ideas!
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+            
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="bg-white bg-opacity-20 p-3 rounded-full mr-4">
+                  <i class="fas fa-envelope text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold">Email</h4>
+                  <a href="mailto:junayedhasin81@gmail.com" class="opacity-90 hover:opacity-100 underline">junayedhasin81@gmail.com</a>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="bg-white bg-opacity-20 p-3 rounded-full mr-4">
+                  <i class="fas fa-phone-alt text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold">Phone</h4>
+                  <a href="tel:+8801730228145" class="opacity-90 hover:opacity-100 underline">+880 1730-228145</a>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="bg-white bg-opacity-20 p-3 rounded-full mr-4">
+                  <i class="fas fa-map-marker-alt text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold">Location</h4>
+                  <p class="opacity-90">13/7, Mirbagh New Road, West Rampura, Dhaka</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+              <h4 class="font-bold mb-4">Follow Me</h4>
+              <div class="flex space-x-4">
+                <a href="https://bd.linkedin.com/in/hasin-junayed" class="bg-white bg-opacity-20 hover:bg-opacity-30 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/hasinjunayed" class="bg-white bg-opacity-20 hover:bg-opacity-30 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                <i class="fab fa-github"></i>
+                </a>
+                <a href="www.facebook.com/hasinjunayed" class="bg-white bg-opacity-20 hover:bg-opacity-30 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="http://www.instagram.com/sociopath._.007" class="bg-white bg-opacity-20 hover:bg-opacity-30 w-10 h-10 rounded-full flex items-center justify-center transition duration-300">
+                <i class="fab fa-instagram"></i>
+                </a>
+                </div>
+                </div>
+                </div>
+                
+              
+                    <!-- Here we wrap the button with an anchor tag -->
+                    <a href="https://m.me/hasinjunayed" target="_blank">
+                      <button 
+                        type="button" 
+                        class="w-full bg-white text-blue-600 font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition duration-300 transform hover:-translate-y-1"
+                      >
+                        Send Message
+                      </button>
+                    </a>
+                  </form>
+                </div>
+                
+                
+
+                
+                <script>
+                  // Mobile menu toggle
+                  const mobileMenuButton = document.getElementById('mobile-menu-button');
+                  const mobileMenu = document.getElementById('mobile-menu');
+                  const closeMenu = document.getElementById('close-menu');
+                  
+                  mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                  });
+                  
+                  closeMenu.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                  });
+                  
+                  // Vanta.js background effect
+                  VANTA.NET({
+                    el: "#vanta-bg",
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    scale: 1.00,
+                    scaleMobile: 1.00,
+                    color: 0x3b82f6,
+                    backgroundColor: 0xf8fafc,
+                    points: 12.00,
+                    maxDistance: 22.00,
+                    spacing: 18.00
+                  });
+                  
+                  // Smooth scrolling for anchor links
+                  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                      e.preventDefault();
+                      
+                      document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                      });
+                      
+                      // Close mobile menu if open
+                      if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                      }
+                    });
+                  });
+                </script>
+                </body> </html>
+                
