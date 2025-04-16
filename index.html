@@ -204,10 +204,51 @@
               <div class="absolute -inset-4 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 blur-xl animate-pulse-slow"></div>
             </div>
             
-            <!-- Floating icons around profile -->
-            <div class="absolute -top-8 -left-8 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-float">
-              <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_vybwn7df.json" background="transparent" speed="1" style="width: 40px; height: 40px;" loop autoplay></lottie-player>
-            </div>
+           <!-- Load DotLottie Player Script -->
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+<!-- Load standard Lottie Player Script -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<!-- Floating DotLottie Animation - Top Left (Up to Down) -->
+<div class="absolute top-4 left-4 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-float">
+  <dotlottie-player 
+    src="https://lottie.host/b49ec553-fd4b-4139-ac67-aea958a63583/tcIs4j940Z.lottie" 
+    background="transparent" 
+    speed="1" 
+    style="width: 40px; height: 40px;" 
+    loop 
+    autoplay>
+  </dotlottie-player>
+</div>
+
+<!-- Floating Lottie Animation - Bottom Right (Down to Up) -->
+<div class="absolute bottom-4 right-4 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-float reverse-float">
+  <lottie-player 
+    src="https://assets9.lottiefiles.com/packages/lf20_vybwn7df.json" 
+    background="transparent" 
+    speed="1" 
+    style="width: 40px; height: 40px;" 
+    loop 
+    autoplay>
+  </lottie-player>
+</div>
+
+<!-- Floating animation style -->
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .reverse-float {
+    animation-direction: reverse;
+  }
+</style>
         
           </div>
         </div>
